@@ -62,8 +62,8 @@ public class MusicController {
         return ResponseEntity.ok(musicService.findAllMusic());
     }
 
-    @DeleteMapping
-    public ResponseEntity<String> deleteMusic(Long id) {
+    @DeleteMapping("{id}")
+    public ResponseEntity<String> deleteMusic(@PathVariable Long id) {
         musicService.deleteMusicById(id);
         return ResponseEntity.ok("OK!");
     }

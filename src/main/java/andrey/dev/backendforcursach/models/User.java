@@ -1,5 +1,6 @@
 package andrey.dev.backendforcursach.models;
 
+import andrey.dev.backendforcursach.enums.Role;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import lombok.Data;
@@ -30,6 +31,7 @@ public class User {
     @Column(name = "balance")
     private BigDecimal balance;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "role")
-    private String role;
+    private Role role;
 }
