@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: backEndForCursach
+  datasource:
+    url: jdbc:postgresql://localhost:7777/${dbName}
+    password: ${passwordForDb}
+    username: ${usernameForDb}
+    driver-class-name: org.postgresql.Driver
+  liquibase:
+    change-log: classpath:/db/changelog/migrations.xml
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 50MB
+      enabled: true
+minio:
+  endpoint: ${minioEndpoint}
+  access-key: ${minioAccessKey}
+  secret-key: ${minioSecretKey}
+  bucket:
+    images: music-images
+    songs: music-songs
+
