@@ -2,9 +2,9 @@ spring:
   application:
     name: backEndForCursach
   datasource:
-    url: jdbc:postgresql://localhost:7777/${dbName}
-    password: ${passwordForDb}
-    username: ${usernameForDb}
+    url: jdbc:postgresql://localhost:7777/${MAIN_DB_NAME:dbName}
+    password: ${MAIN_DB_PASSWORD:passwordForDb}
+    username: ${MAIN_DB_USERNAME:usernameForDb}
     driver-class-name: org.postgresql.Driver
   liquibase:
     change-log: classpath:/db/changelog/migrations.xml
@@ -14,13 +14,14 @@ spring:
       max-request-size: 50MB
       enabled: true
 minio:
-  endpoint: ${minioEndpoint}
-  access-key: ${minioAccessKey}
-  secret-key: ${minioSecretKey}
+  endpoint: ${MINIO_ENDPOINT:miniEndpoint}
+  access-key: ${MINIO_ACCESS_KEY:minioAccessKey}
+  secret-key: ${MINIO_SECRET_KEY:minioSecretKey}
   bucket:
-    images: music-images
-    songs: music-songs
+    images: ${MINIO_IMAGE_BUCKET:music-images}
+    songs: ${MINIO_SONG_BUCKET:music-song}
 
 jwt:
   token:
-    secret: ${SECRET}
+    expiration: 50
+    secret: ${JWT_SECRET:secret}
