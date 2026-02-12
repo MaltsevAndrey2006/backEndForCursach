@@ -1,7 +1,10 @@
 package andrey.dev.backendforcursach.models;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -9,11 +12,14 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "purchases")
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Purchase {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @CreationTimestamp
     @Column(name = "date_of_transaction")
     private LocalDateTime dateOfTransaction;
 

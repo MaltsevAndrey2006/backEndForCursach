@@ -18,11 +18,38 @@ import java.util.List;
 
 @Slf4j
 @RestController
-@RequestMapping("/api/v1/music")
+@RequestMapping("/api/v1/musics")
 @RequiredArgsConstructor
 @Tag(name = "Music Controller", description = "Контроллер для управления музыкой")
 public class MusicController {
     private final MusicService musicService;
+
+
+    @GetMapping("/sorted/price-asc")
+    public List<Music> findMusicSortedByPriceABS() {
+        return musicService.findMusicSortedByPriceABS();
+    }
+
+    @GetMapping("/sorted/price-desc")
+    public List<Music> findMusicSortedByPriceDESC() {
+        return musicService.findMusicSortedByPriceDESC();
+    }
+
+    @GetMapping("/sorted/date-asc")
+    public List<Music> findMusicSortedByReleaseDateABS() {
+        return musicService.findMusicSortedByReleaseDateABS();
+    }
+
+    @GetMapping("/sorted/date-desc")
+    public List<Music> findMusicSortedByReleaseDateDesc() {
+        return musicService.findMusicSortedByReleaseDateDesc();
+    }
+
+
+    @GetMapping("/search")
+    public List<Music> getMusicsWithSearch(@RequestParam String search) {
+        return musicService.findAllMusicWithSearch(search);
+    }
 
     @PostMapping(value = "/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<String> uploadMusic(
@@ -49,6 +76,7 @@ public class MusicController {
                         , testSongName));
         return ResponseEntity.ok("OK!");
     }
+
 
     @GetMapping("{id}")
     public ResponseEntity<Music> geMusic(
@@ -80,8 +108,8 @@ public class MusicController {
             @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
             LocalDate releaseDate,
             @RequestParam("testSongName") String testSongName,
-            @RequestPart("imgFile") MultipartFile imgFile,
-            @RequestPart("musicFile") MultipartFile musicFile) {
+            @RequestPart(value = "imgFile", required = false) MultipartFile imgFile,
+            @RequestPart(value = "musicFile", required = false) MultipartFile musicFile) {
         musicService.updateMusic(new MusicRequest(albumName
                 , groupName
                 , price

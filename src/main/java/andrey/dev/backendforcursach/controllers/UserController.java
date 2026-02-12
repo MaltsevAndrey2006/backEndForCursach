@@ -23,6 +23,11 @@ public class UserController {
         userService.createUser(userRequest);
     }
 
+    @GetMapping("login/{login}")
+    public ResponseEntity<UserDto> findUserByLogin(@PathVariable String login) {
+        return ResponseEntity.ok(userService.findByLogin(login));
+    }
+
     @GetMapping("{id}")
     public ResponseEntity<UserDto> getUserById(@PathVariable Long id) {
         return ResponseEntity.ok(userService.getUserById(id));
@@ -46,5 +51,15 @@ public class UserController {
     @PostMapping
     public void createAdmin(@RequestBody UserRequest userRequest) {
         userService.createAdmin(userRequest);
+    }
+
+    @GetMapping("admins")
+    public ResponseEntity<List<UserDto>> getAllAdmins() {
+        return ResponseEntity.ok(userService.getAllAdmins());
+    }
+
+    @GetMapping("others")
+    public ResponseEntity<List<UserDto>> getAllUsersExceptAdmin(@RequestParam Long id) {
+        return ResponseEntity.ok(userService.getAllUsersExceptAdmin(id));
     }
 }

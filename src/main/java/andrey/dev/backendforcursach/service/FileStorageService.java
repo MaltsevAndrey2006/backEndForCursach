@@ -72,7 +72,7 @@ public class FileStorageService {
             );
             log.info("File deleted: {}/{}", songsBucket, extractFileNameFromUrl(url));
         } catch (Exception e) {
-            log.error("Failed to delete file", e);
+            throw new RuntimeException("Failed to delete file");
         }
     }
 
@@ -86,7 +86,7 @@ public class FileStorageService {
             );
             log.info("File deleted: {}/{}", imageBucket, extractFileNameFromUrl(url));
         } catch (Exception e) {
-            log.error("Failed to delete file", e);
+            throw new RuntimeException("Failed to delete file");
         }
     }
 
@@ -107,6 +107,7 @@ public class FileStorageService {
 
         return isAudioMime || isAudioExtension;
     }
+
 
     private String generateImageFileName(String albumName, MultipartFile file) {
         String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss"));

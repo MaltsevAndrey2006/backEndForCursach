@@ -21,3 +21,6 @@ minio:
     images: music-images
     songs: music-songs
 
+jwt:
+  token:
+    secret: ${SECRET}
